@@ -29,6 +29,21 @@ namespace AutomationTest2021.Methods
             HttpResponseMessage response = client.SendAsync(message).Result;
             return response;
         }
+
+        /* An object of type HttpResponseMessage was created called "ReturnPost" with the following parameter (string Url, string content) 
+           that will be responsible for to request the web server to accept the data attached in the body of the request message for storage in the passed Url */
+        public static HttpResponseMessage ReturnPost(string Url, string content)
+        {
+            HttpRequestMessage message = new HttpRequestMessage
+            {
+                /* Create an object called "Method" responsible for receiving a HttpMethod "POST" used when the client would like to obtain server resources */
+                Method = new HttpMethod("POST"),
+                /* Created an object called "Content" of type StringContent that will store the data to be sent */
+                Content = new StringContent(content),
+                RequestUri = new Uri(Url)
+            };
+            return client.SendAsync(message).Result;
+        }
     }
 }
 
