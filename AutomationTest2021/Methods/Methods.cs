@@ -36,10 +36,10 @@ namespace AutomationTest2021.Methods
         {
             HttpRequestMessage message = new HttpRequestMessage
             {
-                /* Create an object called "Method" responsible for receiving a HttpMethod "POST" used when the client would like to obtain server resources */
+                /* Create an object called "Method" responsible for receiving an HttpMethod "POST" used when the client wants to send data to the server */
                 Method = new HttpMethod("POST"),
                 /* Created an object called "Content" of type StringContent that will store the data to be sent */
-                Content = new StringContent(content),
+                Content = new StringContent(content, Encoding.UTF8, "application/json"),
                 RequestUri = new Uri(Url)
             };
             return client.SendAsync(message).Result;
