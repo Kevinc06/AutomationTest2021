@@ -48,6 +48,25 @@ namespace AutomationTest2021.ApiTest
                 /* Verifying that the name and job are correct with what was entered previously using the POST method */
                 Assert.AreEqual(name, "Mickey Mouse");
                 Assert.AreEqual(job, "CEO");
+
+                /* PUT Method */
+                /* Assigning the API link that the data will be inserted in the variable "url" */
+                string urlPut = "https://reqres.in/api/users/2";
+                /* Assigning the content that will be updated the ID 2 present in the URL */
+                string contentPut = "{\"Name\":\"Mickey Mouse\",\"Job\":\"Actor\"}";
+                /* Calling the ReturnPut method */
+                HttpResponseMessage responsePut = RestMethods.ReturnPut(urlPut, contentPut);
+                /* Stores in the variable "bodyPut" as a string the unformatted data/content that was present in the variable "responsePut" */
+                string bodyPut = responsePut.Content.ReadAsStringAsync().Result;
+                /* A variable was created so that it was possible to store the content present in the variable "bodyPut", however, formatted as a JSON using the method "JOBject.Parse (BodyPut)"  
+                   as the type of data present in the content will change at run time, we need the type of the variable to be dynamic */
+                dynamic parsedBodyPut = JObject.Parse(bodyPut);
+                /* Variables created to test that the "Job" field was updated correctly and that the "Name" field remained the same */
+                string nameUpdated = parsedBodyPut.Name;
+                string jobUpdated = parsedBodyPut.Job;
+                /* Tests to check if the fields are with the data that should be */
+                Assert.AreEqual(nameUpdated, "Mickey Mouse");
+                Assert.AreEqual(jobUpdated, "Actor");
             }
             /* Treatment in case of any failure in any of the tests */
             catch (Exception e)
