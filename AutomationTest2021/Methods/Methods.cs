@@ -44,6 +44,18 @@ namespace AutomationTest2021.Methods
             };
             return client.SendAsync(message).Result;
         }
+        public static HttpResponseMessage ReturnPut(string Url, string content)
+        {
+            HttpRequestMessage message = new HttpRequestMessage
+            {
+                /* Create an object called "Method" responsible for receiving an HttpMethod "PUT" used when the client wants to change data present on a server */
+                Method = new HttpMethod("PUT"),
+                /* Created an object called "Content" of type StringContent that will store the data to be updated */
+                Content = new StringContent(content, Encoding.UTF8, "application/json"),
+                RequestUri = new Uri(Url)
+            };
+            return client.SendAsync(message).Result;
+        }
     }
 }
 
