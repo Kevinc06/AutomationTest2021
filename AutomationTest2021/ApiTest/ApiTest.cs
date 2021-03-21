@@ -35,6 +35,19 @@ namespace AutomationTest2021.ApiTest
                 string name = parsedBody.Name;
                 string job = parsedBody.Job;
                 string idCode = parsedBody.id;
+
+                /* GET Method */
+                /* Assigning the API link that the data will be inserted in the variable "url" */
+                string urlGet = $"https://reqres.in/api/users/{idCode}";
+                /* Calling the ReturnGet method */
+                HttpResponseMessage responseGet = RestMethods.ReturnGet(urlGet);
+                /* Stores in the variable "bodyGet" as a string the unformatted data/content that was present in the variable "responseGet" */
+                string bodyGet = responseGet.Content.ReadAsStringAsync().Result;
+                /* Check if it returns something using the single user method */
+                Assert.AreEqual(bodyGet, "{}");
+                /* Verifying that the name and job are correct with what was entered previously using the POST method */
+                Assert.AreEqual(name, "Mickey Mouse");
+                Assert.AreEqual(job, "CEO");
             }
             /* Treatment in case of any failure in any of the tests */
             catch (Exception e)
